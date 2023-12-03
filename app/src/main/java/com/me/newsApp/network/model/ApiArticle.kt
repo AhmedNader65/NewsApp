@@ -11,5 +11,5 @@ data class ApiArticle(
     val urlToImage: String?,
     val publishedAt: String?,
     val content: String?,
-    val source: String?,
+    val source: ApiArticleSource?,
 )

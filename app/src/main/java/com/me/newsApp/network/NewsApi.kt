@@ -7,7 +7,7 @@ import retrofit2.http.Query
 
 interface NewsApi {
 
-    @GET(ApiConstants.TOP_ENDPOINT + "/{section}/{period}.json")
+    @GET(ApiConstants.TOP_ENDPOINT + "?country=us")
     suspend fun getTopHeadlines(
         @Query("apiKey") apiKey: String = BuildConfig.API_KEY
     ): ApiContainer

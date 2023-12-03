@@ -11,11 +11,11 @@ val key: String = gradleLocalProperties(rootDir).getProperty("API_KEY")
 
 android {
     namespace = "com.me.newsApp"
-    compileSdk = 33
+    compileSdk = 34
     defaultConfig {
         applicationId = "com.me.newsApp"
         minSdk = 24
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -60,6 +60,7 @@ kapt {
 }
 dependencies {
 
+    // UI
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
     implementation("androidx.activity:activity-compose:1.7.0")
@@ -75,6 +76,8 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+    implementation("androidx.navigation:navigation-compose:2.7.5")
+
 
     // NETWORK
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
@@ -84,8 +87,10 @@ dependencies {
 
     implementation("com.google.dagger:hilt-android:2.44")
     kapt("com.google.dagger:hilt-android-compiler:2.44")
+    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
 
     // COMMON
     implementation("com.jakewharton.timber:timber:5.0.1")
+
 
 }
