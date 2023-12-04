@@ -52,9 +52,8 @@ fun HomeScreen(
 
 @Composable
 fun HomeContent(viewModel: HomeViewModel, onArticleClick: () -> Unit) {
-    val articles = remember {
-        viewModel.articles
-    }
+    val articles by viewModel.articlesFlow.collectAsState()
+
     LazyColumn {
         items(articles.size) { index ->
             ArticleItem(
@@ -98,7 +97,7 @@ fun ArticleItem(article: Article, onArticleClick: () -> Unit) {
                 )
             }
             Text(
-                modifier= Modifier.padding(horizontal = 16.dp, vertical = 16.dp),
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp),
                 text = article.title,
                 textAlign = TextAlign.Start,
                 style = MaterialTheme.typography.titleSmall

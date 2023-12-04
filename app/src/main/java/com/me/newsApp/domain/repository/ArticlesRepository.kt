@@ -1,9 +1,10 @@
 package com.me.newsApp.domain.repository
 
 import com.me.newsApp.domain.model.Article
+import kotlinx.coroutines.flow.Flow
 
 interface ArticlesRepository {
-    suspend fun getTopHeadlines(): List<Article>
-    suspend fun fetchTopHeadlines(): List<Article>
+    suspend fun getTopHeadlines(): Flow<List<Article>>
+    suspend fun fetchTopHeadlines()
     suspend fun storeHeadlines(articles: List<Article>)
 }

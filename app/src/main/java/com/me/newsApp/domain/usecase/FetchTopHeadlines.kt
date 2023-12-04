@@ -5,8 +5,7 @@ import com.me.newsApp.domain.repository.ArticlesRepository
 import javax.inject.Inject
 
 class FetchTopHeadlines @Inject constructor(private val articlesRepository: ArticlesRepository) {
-    suspend operator fun invoke():List<Article> {
-        return articlesRepository.fetchTopHeadlines()
-//        articlesRepository.storeHeadlines(result)
+    suspend operator fun invoke() {
+         articlesRepository.fetchTopHeadlines()
     }
 }

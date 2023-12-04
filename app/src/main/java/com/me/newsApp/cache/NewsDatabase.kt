@@ -11,7 +11,7 @@ import com.me.newsApp.cache.entity.ArticleEntity
     entities = [
         ArticleEntity::class
     ],
-    version = 3,
+    version = 1,
     exportSchema = true,
 )
 

@@ -7,8 +7,7 @@ import androidx.room.PrimaryKey
     tableName = "article",
 )
 class ArticleEntity(
-    @PrimaryKey(autoGenerate = true)
-    var id: Long? = null,
+    @PrimaryKey()
     val author: String,
     val title: String,
     val description: String,
