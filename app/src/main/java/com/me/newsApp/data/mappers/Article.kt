@@ -1,6 +1,7 @@
 package com.me.newsApp.data.mappers
 
 import com.me.newsApp.cache.entity.ArticleEntity
+import com.me.newsApp.common.toDate
 import com.me.newsApp.domain.model.Article
 import com.me.newsApp.network.model.ApiArticle
 
@@ -21,7 +22,7 @@ fun ArticleEntity.toArticle() = Article(
     description = description,
     url = url,
     urlToImage = urlToImage,
-    publishedAt = publishedAt,
+    publishedAt = publishedAt.toDate(),
     content = content,
     source = source
 )

@@ -19,7 +19,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,6 +26,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import coil.compose.AsyncImagePainter
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
@@ -35,6 +35,7 @@ import com.me.newsApp.ui.theme.components.LoadingWheel
 
 @Composable
 fun HomeScreen(
+    navController: NavController,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     LaunchedEffect(key1 = Unit, block = {
@@ -43,7 +44,9 @@ fun HomeScreen(
     Box {
         HomeContent(
             viewModel = viewModel,
-            onArticleClick = { /*...*/ }
+            onArticleClick = {
+                navController.navigate("article/${it.title}")
+            }
         )
     }
     HandleState(viewModel)
@@ -51,7 +54,7 @@ fun HomeScreen(
 }
 
 @Composable
-fun HomeContent(viewModel: HomeViewModel, onArticleClick: () -> Unit) {
+fun HomeContent(viewModel: HomeViewModel, onArticleClick: (Article) -> Unit) {
     val articles by viewModel.articlesFlow.collectAsState()
 
     LazyColumn {
@@ -65,7 +68,7 @@ fun HomeContent(viewModel: HomeViewModel, onArticleClick: () -> Unit) {
 }
 
 @Composable
-fun ArticleItem(article: Article, onArticleClick: () -> Unit) {
+fun ArticleItem(article: Article, onArticleClick: (Article) -> Unit) {
     val painter =
         rememberAsyncImagePainter(
             model = ImageRequest.Builder(LocalContext.current)
@@ -75,7 +78,6 @@ fun ArticleItem(article: Article, onArticleClick: () -> Unit) {
                 ) // Set the target size to load the image at.
                 .build()
         )
-    com.me.newsApp.common.Logger.i("state:${painter.state}")
     Card(
         modifier = Modifier
             .padding(vertical = 8.dp, horizontal = 16.dp),
@@ -85,7 +87,7 @@ fun ArticleItem(article: Article, onArticleClick: () -> Unit) {
     ) {
         Column(
             modifier = Modifier
-                .clickable { onArticleClick() }
+                .clickable { onArticleClick(article) }
         ) {
             if (painter.state is AsyncImagePainter.State.Success) {
                 Image(painter = painter, contentDescription = "")

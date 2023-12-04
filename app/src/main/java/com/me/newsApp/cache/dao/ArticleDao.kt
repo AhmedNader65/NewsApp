@@ -14,6 +14,10 @@ interface ArticleDao {
     @Query("SELECT * FROM article")
     fun getArticles(): Flow<List<ArticleEntity>>
 
+    @Transaction
+    @Query("SELECT * FROM article where title = :title LIMIT 1")
+    fun getArticleByTitle(title: String): Flow<ArticleEntity>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(vararg entities: ArticleEntity)
 

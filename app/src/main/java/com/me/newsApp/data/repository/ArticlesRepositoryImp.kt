@@ -23,6 +23,9 @@ class ArticlesRepositoryImp @Inject constructor(
     override suspend fun getTopHeadlines(): Flow<List<Article>> =
         articleDao.getArticles().map { articleEntitiesFlow -> articleEntitiesFlow.map { it.toArticle() } }
 
+    override suspend fun getArticleByTitle(title: String): Flow<Article> =
+        articleDao.getArticleByTitle(title).map { articleEntityFlow -> articleEntityFlow.toArticle() }
+
     override suspend fun fetchTopHeadlines() {
         try {
             val response = api.getTopHeadlines()

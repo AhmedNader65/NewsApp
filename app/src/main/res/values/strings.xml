@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">NewsApp</string>
+    <string name="source">Source: %1$s</string>
+    <string name="by_author">by %1$s</string>
 </resources>

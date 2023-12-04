@@ -39,8 +39,10 @@ class MainActivity : ComponentActivity() {
 fun NewsApp() {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = "home") {
-        composable("home") { HomeScreen(/*...*/) }
-        composable("details") { DetailsScreen(/*...*/) }
+        composable("home") { HomeScreen(navController) }
+        composable("article/{title}") {backStackEntry-> DetailsScreen(
+            navController, backStackEntry.arguments?.getString("title")
+        ) }
         /*...*/
     }
 }
