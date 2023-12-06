@@ -44,7 +44,7 @@ android {
     }
     buildFeatures {
         compose = true
-        buildConfig =true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.4.3"
@@ -54,6 +54,12 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+        }
+    }
+
 }
 kapt {
     correctErrorTypes = true
@@ -70,7 +76,10 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.junit.ktx)
     testImplementation(libs.junit)
+    testImplementation(libs.robolectric)
+    testImplementation(libs.mockito)
     testImplementation(libs.kotlin.test.junit4)
     androidTestImplementation(libs.kotlin.test.junit4)
     androidTestImplementation(libs.androidx.test.ext.junit)
@@ -81,7 +90,7 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     implementation(libs.androidx.navigation)
     implementation(libs.coil.kt)
-
+    testImplementation( "org.mockito.kotlin:mockito-kotlin:4.0.0")
 
 
     // NETWORK
@@ -90,7 +99,9 @@ dependencies {
     implementation(libs.converter.gson)
     // DI
     implementation(libs.hilt.android)
+    testImplementation(libs.hilt.android.testing)
     kapt(libs.hilt.android.compiler)
+    kaptTest(libs.hilt.android.compiler)
     implementation(libs.hilt.navigation.compose)
 
     // COMMON
