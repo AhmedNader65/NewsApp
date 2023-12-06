@@ -2,8 +2,9 @@ package com.me.newsApp.domain.model
 
 import com.google.gson.annotations.SerializedName
 import java.io.IOException
+import java.lang.RuntimeException
 
-abstract class AppErrors : IOException() {
+abstract class AppErrors : RuntimeException() {
 }
 data class NetworkUnavailableError(
     override val message: String = "Network Unavailable"

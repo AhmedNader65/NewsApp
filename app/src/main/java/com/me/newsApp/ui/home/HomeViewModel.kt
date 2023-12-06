@@ -20,7 +20,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(
+open class HomeViewModel @Inject constructor(
     private val fetchTopHeadlines: FetchTopHeadlines,
     private val getTopHeadlines: GetTopHeadlines
 ) : ViewModel() {
@@ -46,7 +46,7 @@ class HomeViewModel @Inject constructor(
             try {
                 invoke()
                 _homeUiState.value = HomeUIState.Idle
-            } catch (e: AppErrors) {
+            } catch (e: Exception) {
                 _homeUiState.value = HomeUIState.Error(e.message ?: "Unknown error")
             }
         }

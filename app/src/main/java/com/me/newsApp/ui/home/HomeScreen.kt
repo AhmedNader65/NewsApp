@@ -23,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -57,9 +58,10 @@ fun HomeScreen(
 fun HomeContent(viewModel: HomeViewModel, onArticleClick: (Article) -> Unit) {
     val articles by viewModel.articlesFlow.collectAsState()
 
-    LazyColumn {
+    LazyColumn(modifier = Modifier.testTag("articlesList")) {
         items(articles.size) { index ->
             ArticleItem(
+                index = index,
                 article = articles[index],
                 onArticleClick = onArticleClick
             )
@@ -68,7 +70,7 @@ fun HomeContent(viewModel: HomeViewModel, onArticleClick: (Article) -> Unit) {
 }
 
 @Composable
-fun ArticleItem(article: Article, onArticleClick: (Article) -> Unit) {
+fun ArticleItem(index: Int, article: Article, onArticleClick: (Article) -> Unit) {
     val painter =
         rememberAsyncImagePainter(
             model = ImageRequest.Builder(LocalContext.current)
@@ -87,6 +89,7 @@ fun ArticleItem(article: Article, onArticleClick: (Article) -> Unit) {
     ) {
         Column(
             modifier = Modifier
+                .testTag("articleItem$index")
                 .clickable { onArticleClick(article) }
         ) {
             if (painter.state is AsyncImagePainter.State.Success) {
@@ -99,7 +102,7 @@ fun ArticleItem(article: Article, onArticleClick: (Article) -> Unit) {
                 )
             }
             Text(
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 16.dp),
+                modifier = Modifier.testTag("title$index").padding(horizontal = 16.dp, vertical = 16.dp),
                 text = article.title,
                 textAlign = TextAlign.Start,
                 style = MaterialTheme.typography.titleSmall

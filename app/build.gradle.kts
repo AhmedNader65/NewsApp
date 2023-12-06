@@ -81,6 +81,7 @@ dependencies {
     testImplementation(libs.robolectric)
     testImplementation(libs.mockito)
     testImplementation(libs.kotlin.test.junit4)
+    androidTestImplementation(libs.mockito)
     androidTestImplementation(libs.kotlin.test.junit4)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -90,8 +91,12 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     implementation(libs.androidx.navigation)
     implementation(libs.coil.kt)
-    testImplementation( "org.mockito.kotlin:mockito-kotlin:4.0.0")
-
+    testImplementation( libs.mockito.kotlin)
+    testImplementation(libs.mockito.inline)
+    androidTestImplementation(libs.mockito.inline)
+    testImplementation (libs.kotlinx.coroutines.test)
+    androidTestImplementation (libs.kotlinx.coroutines.test)
+    androidTestImplementation (libs.kotlinx.coroutines.test)
 
     // NETWORK
     implementation(libs.retrofit)

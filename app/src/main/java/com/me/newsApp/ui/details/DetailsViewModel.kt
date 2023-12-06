@@ -11,6 +11,7 @@ import com.me.newsApp.domain.model.Article
 import com.me.newsApp.domain.usecase.FetchTopHeadlines
 import com.me.newsApp.domain.usecase.GetArticleByTitle
 import com.me.newsApp.domain.usecase.GetTopHeadlines
+import com.me.newsApp.ui.home.HomeUIState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -32,9 +33,20 @@ class DetailsViewModel @Inject constructor(
     private val _articleFlow = MutableStateFlow<Article?>(null)
     val articleFlow: StateFlow<Article?> get() = _articleFlow
 
-    init {
+    fun getData() {
         viewModelScope.launch {
-            _articleFlow.emitAll(getArticleByTitle(title = title))
+            getArticleByTitle.uiState()
+        }
+    }
+
+    private suspend fun GetArticleByTitle.uiState() {
+        return withContext(Dispatchers.IO) {
+            try {
+                val result = invoke(title = title)
+                _articleFlow.emitAll(result)
+            } catch (e: Exception) {
+                println(e.message?:"Unknown error")
+            }
         }
     }
 }

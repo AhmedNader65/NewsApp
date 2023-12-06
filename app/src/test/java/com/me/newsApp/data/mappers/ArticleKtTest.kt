@@ -58,7 +58,7 @@ class ArticleMapperTest {
             description = "Description",
             url = "Url",
             urlToImage = "UrlToImage",
-            publishedAt = "PublishedAt".toDate(),
+            publishedAt = "2022-03-01T12:00:00Z".toDate(),
             content = "Content",
             source = "SourceName"
         )
